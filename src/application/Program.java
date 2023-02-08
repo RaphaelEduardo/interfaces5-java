@@ -20,7 +20,7 @@ public class Program {
 		List<Employee> list = new ArrayList<>();
 		
 		//Local do arquivo txx que vai ser lido
-		String path = "C:\\Users\\Raphael\\Desktop\\teste.txt";
+		String path = "C:\\temp\\teste.txt";
 
 		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
 
