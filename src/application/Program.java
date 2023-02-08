@@ -8,31 +8,45 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
+import entities.Employee;
+
 public class Program {
 
 	public static void main(String[] args) {
 
 		Locale.setDefault(Locale.US);
 
-		List<String> list = new ArrayList<>();
+		//Lista de funcionários.
+		List<Employee> list = new ArrayList<>();
+		
+		//Local do arquivo txx que vai ser lido
 		String path = "C:\\Users\\Raphael\\Desktop\\teste.txt";
 
 		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
 
-			String name = br.readLine();
-			while (name != null) {
-				list.add(name);
-				name = br.readLine();
+			//armazena a linha do arquivo.
+			String employeeCsv = br.readLine();
+			
+			//while para percorrer as linhas do arquivo.
+			while (employeeCsv != null) {
+				
+				//vetor de string que separa a posição por virgula (nome, salario).
+				String[] fields = employeeCsv.split(","); 
+				
+				/*
+				 * nome na pos[0] e salario na pos[1] 
+				 * Double.parseDouble para realizar a conversão do string.
+				*/
+				list.add(new Employee(fields[0], Double.parseDouble(fields[1])));
+				employeeCsv = br.readLine();
 			}
 			Collections.sort(list);
-			for (String s : list) {
-				System.out.println(s);
+			for (Employee emp : list) {
+				System.out.println(emp.getName() + ", R$ " + String.format("%.2f", emp.getSalary()));
 			}
 
 		} catch (IOException e) {
 			System.out.println("Error: " + e.getMessage());
 		}
-
 	}
-
 }
